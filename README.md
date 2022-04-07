@@ -24,3 +24,6 @@
 ### 게시글 작성 
 ![image](https://user-images.githubusercontent.com/55896511/162250131-a3866ec3-bd21-47e3-8b74-03a194ffe052.png)
 <br>
+### 게시글 수정
+![image](https://user-images.githubusercontent.com/55896511/162251880-0c596e1e-3983-46d8-b2dd-77b4ddc40dc4.png)
+<br>
