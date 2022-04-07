@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="boardMapper">
+	
+	<!-- Write a bulletin board -->
+    <insert id="insert">
+    	INSERT INTO board_table (WRITER, USERPASS, CATEGORY, CONTENT, COST, STATE)
+				VALUE(#{writer}, #{userpass}, #{category}, #{content},#{cost}, #{state});
+	</insert>
+	
+	
+	<select id="listPage" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
+	
+		SELECT *
+		FROM (
+				SELECT *,
+				ROW_NUMBER() over(ORDER BY FIELD(STATE,"판매완료") ASC, CREATE_DATE ASC) AS rNum
+				FROM board_table
+			 )A
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		
+		
+	</select>
+	
+	
+	<select id="listPage_Toys" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
+		SELECT *
+		FROM (
+				SELECT *,
+				ROW_NUMBER() over(ORDER BY FIELD(STATE,"판매완료") ASC, CREATE_DATE ASC) AS rNum
+				FROM board_table
+				WHERE CATEGORY = "Toys"
+			 )A
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		
+	</select>
+	
+	<select id="listPage_Clothes" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
+		SELECT *
+		FROM (
+				SELECT *,
+				ROW_NUMBER() over(ORDER BY FIELD(STATE,"판매완료") ASC, CREATE_DATE ASC) AS rNum
+				FROM board_table
+				WHERE CATEGORY = "Clothes"
+			 )A
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		
+	</select>
+	
+	<select id="listPage_Fruits" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
+		SELECT *
+		FROM (
+				SELECT *,
+				ROW_NUMBER() over(ORDER BY FIELD(STATE,"판매완료") ASC, CREATE_DATE ASC) AS rNum
+				FROM board_table
+				WHERE CATEGORY = "Fruits"
+			 )A
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		
+	</select>
+	
+	<select id="listPage_Electronics" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
+		SELECT *
+		FROM (
+				SELECT *,
+				ROW_NUMBER() over(ORDER BY FIELD(STATE,"판매완료") ASC, CREATE_DATE ASC) AS rNum
+				FROM board_table
+				WHERE CATEGORY = "Electronics"
+			 )A
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		
+	</select>
+	
+	
+
+	
+	<select id="listCount" resultType="int" >
+		<![CDATA[
+		SELECT COUNT(ID)
+		FROM board_table
+		WHERE ID > 0
+		]]>
+	</select>
+	
+		<select id="listCount2" resultType="int" parameterType="String">
+		<![CDATA[
+		SELECT COUNT(ID)
+		FROM board_table
+		WHERE CATEGORY = #{value} AND ID > 0	
+		]]>
+
+	</select>
+	
+	
+	
+	<select id="read" parameterType="int" resultType="com.board.domain.BoardVO">
+		SELECT	*
+		FROM board_table
+		WHERE ID = #{id}
+	</select>
+	
+	  <update id="update" parameterType="com.board.domain.BoardVO">
+		UPDATE board_table
+		   SET WRITER = #{writer},
+		   	   USERPASS = #{userpass},
+		   	   CATEGORY = #{category},
+		   	   CONTENT = #{content},
+		   	   COST = #{cost},
+		   	   IMAGE = #{image},
+		   	   STATE = #{state},
+		   	   CREATE_DATE = #{create_date}
+		 WHERE ID = #{id} 
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE 
+		  FROM board_table
+		 WHERE ID = #{id}
+	</delete>
+	
+	<update id="boardClick" parameterType = "int">
+		UPDATE BOARD_TABLE SET
+		CLICK_CNT = CLICK_CNT + 1
+		WHERE ID = #{id}	
+	</update>
+	
+	
+					 		 
+</mapper>

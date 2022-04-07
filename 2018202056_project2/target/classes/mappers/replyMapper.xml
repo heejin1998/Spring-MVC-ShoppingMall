@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+
+	<!-- View comment -->
+	<select id="readReply" resultType="com.board.domain.ReplyVO">
+    	SELECT
+    		  RID, CONTENT, WRITER, USERPASS, CREATE_DATE
+    	FROM BOARD_REPLY
+    	WHERE ID = #{id}
+	</select>
+	
+	<!-- Write comment -->
+	<insert id="writeReply">
+		INSERT INTO BOARD_REPLY(
+			ID, CONTENT, WRITER, USERPASS, CREATE_DATE)
+		VALUES(#{id}, #{content},#{writer}, #{userpass}, #{create_date})
+	</insert>
+	
+	<!-- Count comment -->
+	<select id="countReply" resultType="int" parameterType="int" >
+		<![CDATA[
+		SELECT COUNT(ID)
+		FROM BOARD_REPLY
+		WHERE ID = #{id}
+		]]>
+	</select>
+	
+	
+
+</mapper>
