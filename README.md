@@ -1,5 +1,5 @@
-# SWProject1-Project
-스프링 프레임 워크를 이용한 MVC2 기반의 간단한 쇼핑몰 (ING..)
+# Spring MVC ShoppingMall
+스프링 프레임 워크를 이용한 MVC2 기반의 간단한 쇼핑몰 (작업 중...)
 <br>
 
 ## ⚒ 사용 기술
